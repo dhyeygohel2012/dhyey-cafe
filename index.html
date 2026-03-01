@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dhyey's Cafe — Sip. Savor. Stay.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --blush:    #f5d6d6;
+    --peach:    #fce8d5;
+    --mint:     #d4ede8;
+    --lavender: #e8dff5;
+    --butter:   #fdf3d0;
+    --rose:     #e8a0a0;
+    --sage:     #8bbcaa;
+    --mauve:    #c09bb8;
+    --brown:    #7a5c4e;
+    --dark:     #3b2a22;
+    --cream:    #fdfaf6;
+    --text:     #4a3728;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(253, 250, 246, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(122, 92, 78, 0.1);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--brown);
+    letter-spacing: 0.02em;
+  }
+  .logo span { color: var(--rose); font-style: italic; }
+
+  nav ul { list-style: none; display: flex; gap: 2.5rem; }
+  nav a {
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  nav a:hover { color: var(--rose); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 5% 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 70% 40%, var(--peach) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 70%, var(--blush) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 50% at 80% 80%, var(--mint) 0%, transparent 60%);
+    z-index: 0;
+  }
+
+  .hero-text { position: relative; z-index: 1; }
+
+  .hero-tag {
+    display: inline-block;
+    background: var(--lavender);
+    color: var(--mauve);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.1;
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero h1 em { color: var(--rose); font-style: italic; }
+
+  .hero p {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--brown);
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.9rem 2.2rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+  .btn-primary {
+    background: var(--brown);
+    color: #fff;
+    border: 2px solid var(--brown);
+  }
+  .btn-primary:hover {
+    background: var(--dark);
+    border-color: var(--dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(59,42,34,0.2);
+  }
+  .btn-outline {
+    border: 2px solid var(--brown);
+    color: var(--brown);
+    margin-left: 1rem;
+    background: transparent;
+  }
+  .btn-outline:hover {
+    background: var(--blush);
+    transform: translateY(-2px);
+  }
+
+  .hero-visual {
+    position: relative; z-index: 1;
+    display: flex; justify-content: center; align-items: center;
+  }
+
+  .cup-scene {
+    position: relative;
+    width: 360px; height: 360px;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-16px); }
+  }
+
+  .cup-bg {
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, var(--butter) 0%, var(--peach) 60%, var(--blush) 100%);
+    box-shadow: 0 30px 80px rgba(232,160,160,0.35);
+  }
+
+  .cup-emoji {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10rem;
+    filter: drop-shadow(0 10px 30px rgba(122,92,78,0.25));
+  }
+
+  .badge {
+    position: absolute;
+    background: white;
+    border-radius: 50px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    white-space: nowrap;
+  }
+  .badge-1 { top: 20px; right: 0; animation: fadeUp 1s 0.6s ease both; }
+  .badge-2 { bottom: 60px; left: -20px; animation: fadeUp 1s 0.8s ease both; }
+  .badge-3 { top: 50%; right: -30px; transform: translateY(-50%); animation: fadeUp 1s 1s ease both; }
+
+  .badge .dot {
+    display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; margin-right: 6px;
+  }
+
+  /* ── DIVIDER ── */
+  .wave-divider { display: block; width: 100%; overflow: hidden; line-height: 0; }
+
+  /* ── SECTION STYLES ── */
+  section { padding: 6rem 5%; }
+
+  .section-head {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-head .pill {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+  }
+
+  .section-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--dark);
+    line-height: 1.2;
+  }
+
+  .section-head p {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--brown);
+    font-weight: 300;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+  }
+
+  /* ── MENU TABS ── */
+  #menu { background: var(--cream); }
+
+  .tabs {
+    display: flex; gap: 0.8rem; flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .tab-btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+
+  .tab-btn:hover { border-color: var(--rose); color: var(--rose); }
+  .tab-btn.active { background: var(--brown); color: #fff; border-color: var(--brown); }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .menu-panel { display: none; }
+  .menu-panel.active { display: block; }
+
+  .card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  .card-img {
+    height: 150px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4.5rem;
+  }
+
+  .card-body { padding: 1.2rem 1.4rem 1.4rem; }
+  .card-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--dark);
+    margin-bottom: 0.3rem;
+  }
+  .card-body p {
+    font-size: 0.8rem;
+    color: var(--brown);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+  }
+
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--rose);
+    font-weight: 700;
+  }
+  .tag-small {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    font-weight: 500;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: linear-gradient(135deg, var(--peach) 0%, var(--blush) 50%, var(--lavender) 100%);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .about-tile {
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    gap: 0.6rem;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+  }
+  .about-tile:hover { transform: scale(1.04); }
+  .about-tile:nth-child(2) { margin-top: 2rem; }
+  .about-tile:nth-child(4) { margin-top: -2rem; }
+
+  .about-tile .icon { font-size: 2.5rem; }
+  .about-tile strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--dark);
+  }
+  .about-tile span {
+    font-size: 0.78rem;
+    color: var(--brown);
+    text-align: center;
+    font-weight: 300;
+  }
+
+  .about-text { }
+  .about-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: var(--dark);
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+  .about-text h2 em { color: var(--rose); font-style: italic; }
+  .about-text p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--brown);
+    margin-bottom: 1rem;
+  }
+
+  .signature {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--mauve);
+    margin-top: 1.5rem;
+  }
+
+  /* ── SPECIALS ── */
+  #specials {
+    background: var(--dark);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #specials::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 50% 80% at 90% 10%, rgba(232,160,160,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(139,188,170,0.1) 0%, transparent 60%);
+  }
+
+  #specials .section-head h2 { color: white; }
+  #specials .section-head p { color: rgba(255,255,255,0.55); }
+
+  .specials-row {
+    display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 1;
+  }
+
+  .special-card {
+    flex: 1 1 260px; max-width: 300px;
+    border-radius: 24px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .special-card:hover { transform: translateY(-6px); }
+
+  .special-card::before {
+    content: attr(data-emoji);
+    position: absolute;
+    right: -10px; bottom: -10px;
+    font-size: 6rem;
+    opacity: 0.15;
+  }
+
+  .special-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  .special-card p {
+    font-size: 0.82rem;
+    font-weight: 300;
+    line-height: 1.7;
+    opacity: 0.75;
+    margin-bottom: 1.2rem;
+  }
+  .special-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+  .special-badge {
+    position: absolute;
+    top: 1.2rem; right: 1.2rem;
+    background: rgba(255,255,255,0.2);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 50px;
+  }
+
+  /* ── TESTIMONIALS ── */
+  #reviews { background: var(--butter); }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .review-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.8rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    position: relative;
+  }
+
+  .review-card::before {
+    content: '"';
+    position: absolute;
+    top: 0.5rem; left: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: var(--blush);
+    line-height: 1;
+  }
+
+  .stars { color: #f0a070; font-size: 0.9rem; margin-bottom: 1rem; }
+
+  .review-text {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 1.2rem;
+    font-style: italic;
+  }
+
+  .reviewer {
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .reviewer-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .reviewer-name {
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: var(--dark);
+  }
+  .reviewer-sub {
+    font-size: 0.75rem;
+    color: var(--brown);
+    font-weight: 300;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: linear-gradient(135deg, var(--mint) 0%, var(--lavender) 100%);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    color: var(--dark);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .contact-info p {
+    font-size: 0.95rem;
+    color: var(--brown);
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .info-items { display: flex; flex-direction: column; gap: 1rem; }
+
+  .info-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 1rem 1.2rem;
+  }
+  .info-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .info-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mauve);
+    margin-bottom: 0.2rem;
+  }
+  .info-val {
+    font-size: 0.9rem;
+    color: var(--dark);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .contact-form {
+    background: white;
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+  }
+  .contact-form h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brown);
+    margin-bottom: 0.4rem;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid rgba(122,92,78,0.15);
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--cream);
+    transition: border-color 0.3s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--rose);
+  }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.6);
+    padding: 3rem 5% 2rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  .footer-logo span { color: var(--rose); font-style: italic; }
+  footer p { font-size: 0.85rem; font-weight: 300; margin-bottom: 1.5rem; }
+  .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+  .footer-links a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--rose); }
+  .copyright {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 1.5rem;
+    font-size: 0.75rem;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; text-align: center; }
+    .hero p { margin: 0 auto 2.5rem; }
+    .hero-visual { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    nav ul { gap: 1.2rem; }
+    .cup-scene { width: 260px; height: 260px; }
+  }
+
+  /* Reveal animation on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Dhyey's <span>Cafe</span></div>
+  <ul>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#specials">Specials</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-tag">☕ Artisan Cafe Since 2020</div>
+    <h1>Every sip tells a <em>story</em></h1>
+    <p>At Dhyey's Cafe, we craft drinks with soul — from velvety coffees and dreamy frappes to refreshing mocktails, indulgent shakes, and calming teas.</p>
+    <a href="#menu" class="btn btn-primary">Explore Menu</a>
+    <a href="#contact" class="btn btn-outline">Reserve a Table</a>
+  </div>
+  <div class="hero-visual">
+    <div class="cup-scene">
+      <div class="cup-bg"></div>
+      <div class="cup-emoji">☕</div>
+      <div class="badge badge-1"><span class="dot" style="background:var(--rose)"></span>Freshly Brewed</div>
+      <div class="badge badge-2"><span class="dot" style="background:var(--sage)"></span>100% Natural</div>
+      <div class="badge badge-3"><span class="dot" style="background:var(--mauve)"></span>20+ Flavors</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-head reveal">
+    <div class="pill" style="background:var(--blush);color:var(--rose)">Our Menu</div>
+    <h2>What would you like today?</h2>
+    <p>Browse our curated collection of hand-crafted beverages, each made with love and the finest ingredients.</p>
+  </div>
+
+  <div class="tabs reveal">
+    <button class="tab-btn active" onclick="showTab('coffee')">☕ Coffee</button>
+    <button class="tab-btn" onclick="showTab('frappe')">🧋 Frappes</button>
+    <button class="tab-btn" onclick="showTab('mocktail')">🍹 Mocktails</button>
+    <button class="tab-btn" onclick="showTab('shake')">🥤 Shakes</button>
+    <button class="tab-btn" onclick="showTab('tea')">🍵 Teas</button>
+  </div>
+
+  <!-- Coffee -->
+  <div class="menu-panel active" id="panel-coffee">
+    <div class="menu-grid">
+      <div class="card"><div class="card-img" style="background:var(--peach)">☕</div><div class="card-body"><h3>Classic Espresso</h3><p>Bold, intense shot of perfectly pulled espresso with a rich golden crema.</p><div class="card-footer"><span class="price">₹120</span><span class="tag-small" style="background:var(--peach);color:var(--brown)">Hot</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--blush)">🤎</div><div class="card-body"><h3>Creamy Cappuccino</h3><p>Espresso layered with silky steamed milk and velvety microfoam.</p><div class="card-footer"><span class="price">₹180</span><span class="tag-small" style="background:var(--blush);color:var(--rose)">Hot</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--lavender)">💜</div><div class="card-body"><h3>Lavender Latte</h3><p>Espresso kissed with house-made lavender syrup and oat milk foam.</p><div class="card-footer"><span class="price">₹220</span><span class="tag-small" style="background:var(--lavender);color:var(--mauve)">Signature</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--mint)">🧊</div><div class="card-body"><h3>Cold Brew Noir</h3><p>12-hour slow-steeped cold brew, smooth and never bitter.</p><div class="card-footer"><span class="price">₹200</span><span class="tag-small" style="background:var(--mint);color:var(--sage)">Cold</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--butter)">🌙</div><div class="card-body"><h3>Cardamom Brew</h3><p>Aromatic espresso infused with freshly ground cardamom and jaggery.</p><div class="card-footer"><span class="price">₹190</span><span class="tag-small" style="background:var(--butter);color:var(--brown)">Specialty</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--peach)">🌸</div><div class="card-body"><h3>Rose Flat White</h3><p>Velvety ristretto with steamed whole milk and rose water essence.</p><div class="card-footer"><span class="price">₹210</span><span class="tag-small" style="background:var(--peach);color:var(--brown)">Hot</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Frappes -->
+  <div class="menu-panel" id="panel-frappe">
+    <div class="menu-grid">
+      <div class="card"><div class="card-img" style="background:var(--peach)">🥛</div><div class="card-body"><h3>Classic Mocha Frappe</h3><p>Blended espresso, chocolate sauce, and ice crowned with whipped cream.</p><div class="card-footer"><span class="price">₹250</span><span class="tag-small" style="background:var(--peach);color:var(--brown)">Cold</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--lavender)">💜</div><div class="card-body"><h3>Blueberry Frappe</h3><p>Wild blueberry compote blended with vanilla ice cream and cold brew.</p><div class="card-footer"><span class="price">₹270</span><span class="tag-small" style="background:var(--lavender);color:var(--mauve)">Fruity</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--mint)">🌿</div><div class="card-body"><h3>Matcha Cream Frappe</h3><p>Premium ceremonial matcha blended with milk and vanilla bean cream.</p><div class="card-footer"><span class="price">₹280</span><span class="tag-small" style="background:var(--mint);color:var(--sage)">Signature</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--blush)">🍓</div><div class="card-body"><h3>Strawberry Kiss Frappe</h3><p>Fresh strawberries, vanilla espresso and sweet cream — pure joy in a cup.</p><div class="card-footer"><span class="price">₹260</span><span class="tag-small" style="background:var(--blush);color:var(--rose)">Fruity</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--butter)">🍯</div><div class="card-body"><h3>Caramel Cloud Frappe</h3><p>Buttery caramel ribbons, espresso ice blend, salted whipped topping.</p><div class="card-footer"><span class="price">₹275</span><span class="tag-small" style="background:var(--butter);color:var(--brown)">Sweet</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--peach)">🍫</div><div class="card-body"><h3>Dark Chocolate Frappe</h3><p>Rich Belgian dark chocolate blended with espresso and coconut milk.</p><div class="card-footer"><span class="price">₹265</span><span class="tag-small" style="background:var(--peach);color:var(--brown)">Cold</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Mocktails -->
+  <div class="menu-panel" id="panel-mocktail">
+    <div class="menu-grid">
+      <div class="card"><div class="card-img" style="background:var(--blush)">🌺</div><div class="card-body"><h3>Hibiscus Mule</h3><p>Hibiscus flower, fresh lime, ginger beer and a mint sprig on top.</p><div class="card-footer"><span class="price">₹230</span><span class="tag-small" style="background:var(--blush);color:var(--rose)">Refreshing</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--mint)">🍃</div><div class="card-body"><h3>Cucumber Cooler</h3><p>Fresh cucumber, basil, sparkling water, and a hint of elderflower.</p><div class="card-footer"><span class="price">₹210</span><span class="tag-small" style="background:var(--mint);color:var(--sage)">Light</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--lavender)">🫐</div><div class="card-body"><h3>Berry Bliss</h3><p>Mixed berries, rose water, sparkling water and a sugar rim.</p><div class="card-footer"><span class="price">₹240</span><span class="tag-small" style="background:var(--lavender);color:var(--mauve)">Fruity</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--peach)">🍊</div><div class="card-body"><h3>Orange Blossom</h3><p>Fresh orange juice, blossom water, ginger, and chilled soda.</p><div class="card-footer"><span class="price">₹220</span><span class="tag-small" style="background:var(--peach);color:var(--brown)">Citrus</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--butter)">🍋</div><div class="card-body"><h3>Lychee Lemonade</h3><p>Freshly squeezed lemon with lychee syrup and mint soda water.</p><div class="card-footer"><span class="price">₹215</span><span class="tag-small" style="background:var(--butter);color:var(--brown)">Tangy</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--mint)">🥒</div><div class="card-body"><h3>Green Garden</h3><p>Kiwi, apple, spinach, cucumber — pressed fresh and served over ice.</p><div class="card-footer"><span class="price">₹235</span><span class="tag-small" style="background:var(--mint);color:var(--sage)">Healthy</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Shakes -->
+  <div class="menu-panel" id="panel-shake">
+    <div class="menu-grid">
+      <div class="card"><div class="card-img" style="background:var(--blush)">🍓</div><div class="card-body"><h3>Strawberry Dream</h3><p>Real strawberries blended with vanilla ice cream and a secret pinch of salt.</p><div class="card-footer"><span class="price">₹240</span><span class="tag-small" style="background:var(--blush);color:var(--rose)">Classic</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--peach)">🍫</div><div class="card-body"><h3>Triple Chocolate</h3><p>White, milk and dark chocolate blended thick with premium gelato.</p><div class="card-footer"><span class="price">₹280</span><span class="tag-small" style="background:var(--peach);color:var(--brown)">Indulgent</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--mint)">🥭</div><div class="card-body"><h3>Mango Tango</h3><p>Alphonso mango pulp with cream, saffron threads and cardamom.</p><div class="card-footer"><span class="price">₹260</span><span class="tag-small" style="background:var(--mint);color:var(--sage)">Seasonal</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--lavender)">🫐</div><div class="card-body"><h3>Blueberry Cheesecake</h3><p>Blueberry, cream cheese, graham cracker crumble — in shake form.</p><div class="card-footer"><span class="price">₹290</span><span class="tag-small" style="background:var(--lavender);color:var(--mauve)">Premium</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--butter)">🥜</div><div class="card-body"><h3>Peanut Butter Bliss</h3><p>Creamy peanut butter, banana, oat milk and a drizzle of honey.</p><div class="card-footer"><span class="price">₹270</span><span class="tag-small" style="background:var(--butter);color:var(--brown)">Nutty</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--blush)">🍦</div><div class="card-body"><h3>Vanilla Cloud</h3><p>Madagascar vanilla bean, farm milk, whipped cream — timeless and pure.</p><div class="card-footer"><span class="price">₹230</span><span class="tag-small" style="background:var(--blush);color:var(--rose)">Classic</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- Teas -->
+  <div class="menu-panel" id="panel-tea">
+    <div class="menu-grid">
+      <div class="card"><div class="card-img" style="background:var(--peach)">🍵</div><div class="card-body"><h3>Masala Chai</h3><p>Spiced black tea simmered with ginger, cardamom, cinnamon and clove.</p><div class="card-footer"><span class="price">₹130</span><span class="tag-small" style="background:var(--peach);color:var(--brown)">Hot</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--mint)">🌿</div><div class="card-body"><h3>Moroccan Mint</h3><p>Fresh peppermint leaves steeped with gunpowder green tea and honey.</p><div class="card-footer"><span class="price">₹160</span><span class="tag-small" style="background:var(--mint);color:var(--sage)">Refreshing</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--lavender)">🌸</div><div class="card-body"><h3>Earl Grey Bloom</h3><p>Premium bergamot Earl Grey with dried lavender and a lemon twist.</p><div class="card-footer"><span class="price">₹170</span><span class="tag-small" style="background:var(--lavender);color:var(--mauve)">Floral</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--blush)">🫖</div><div class="card-body"><h3>Rose Hip Herbal</h3><p>Tart rose hip, hibiscus and beetroot — antioxidant-rich and caffeine free.</p><div class="card-footer"><span class="price">₹175</span><span class="tag-small" style="background:var(--blush);color:var(--rose)">Wellness</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--butter)">🌼</div><div class="card-body"><h3>Chamomile Dreams</h3><p>Delicate chamomile with honey, dried apple and a sliver of vanilla.</p><div class="card-footer"><span class="price">₹155</span><span class="tag-small" style="background:var(--butter);color:var(--brown)">Calming</span></div></div></div>
+      <div class="card"><div class="card-img" style="background:var(--mint)">🍃</div><div class="card-body"><h3>Iced Lemon Green</h3><p>Cold-brewed green tea with fresh lemon, honey and basil seeds.</p><div class="card-footer"><span class="price">₹165</span><span class="tag-small" style="background:var(--mint);color:var(--sage)">Cold</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-tile"><div class="icon">☕</div><strong>5000+</strong><span>Cups crafted every month</span></div>
+      <div class="about-tile"><div class="icon">🌿</div><strong>100%</strong><span>Natural ingredients sourced locally</span></div>
+      <div class="about-tile"><div class="icon">⭐</div><strong>4.9</strong><span>Average customer rating</span></div>
+      <div class="about-tile"><div class="icon">🕐</div><strong>7 AM</strong><span>We open early, just for you</span></div>
+    </div>
+    <div class="about-text reveal">
+      <h2>A cafe born from <em>passion</em> for perfect drinks</h2>
+      <p>Dhyey's Cafe was born out of one simple dream — to create a place where every person who walks in feels a little more at home. We believe that a great drink isn't just about flavors; it's about the moment it creates.</p>
+      <p>From sourcing single-origin coffees to hand-picking herbs for our teas, every detail at Dhyey's is curated with care. Our baristas are trained artisans who treat each cup as a canvas.</p>
+      <p>Whether you're rushing through your morning or lingering over a slow afternoon — we have your perfect sip waiting.</p>
+      <div class="signature">— Dhyey, Founder & Head Barista</div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALS -->
+<section id="specials">
+  <div class="section-head reveal">
+    <div class="pill" style="background:rgba(232,160,160,0.2);color:var(--rose)">Today's Specials</div>
+    <h2>Drinks you'll fall in love with</h2>
+    <p>Limited edition drinks crafted by Dhyey himself — available today only.</p>
+  </div>
+  <div class="specials-row reveal">
+    <div class="special-card" data-emoji="☕" style="background:linear-gradient(135deg,#5c3d2e,#3b2a22)">
+      <div class="special-badge">Chef's Pick</div>
+      <h3>Saffron Cold Brew</h3>
+      <p>Cold brew steeped with saffron threads, a touch of rose water, served over crystal ice.</p>
+      <div class="special-price">₹320</div>
+    </div>
+    <div class="special-card" data-emoji="🍓" style="background:linear-gradient(135deg,#c07090,#8b3a5a)">
+      <div class="special-badge">Fan Favorite</div>
+      <h3>Strawberry Matcha</h3>
+      <p>Layered matcha latte with fresh strawberry compote — the internet's obsession, done right.</p>
+      <div class="special-price">₹310</div>
+    </div>
+    <div class="special-card" data-emoji="🫐" style="background:linear-gradient(135deg,#4a5c8a,#2a3a6b)">
+      <div class="special-badge">New Arrival</div>
+      <h3>Blue Butterfly Lemonade</h3>
+      <p>Blue butterfly pea flower tea that magically turns purple when you add lemon. Pure wonder.</p>
+      <div class="special-price">₹295</div>
+    </div>
+    <div class="special-card" data-emoji="🥭" style="background:linear-gradient(135deg,#8b5a2a,#6b3a10)">
+      <div class="special-badge">Seasonal</div>
+      <h3>Mango Chilli Frappe</h3>
+      <p>Sweet Alphonso mango meets a daring kick of chilli — sweet, cold, bold.</p>
+      <div class="special-price">₹285</div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-head reveal">
+    <div class="pill" style="background:var(--peach);color:var(--brown)">Reviews</div>
+    <h2>Loved by coffee souls</h2>
+    <p>What our guests say keeps us making better drinks, every single day.</p>
+  </div>
+  <div class="reviews-grid reveal">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-text">The Lavender Latte changed my life. I've been to cafes across three countries and this is genuinely one of the most thoughtful cups I've ever had. The ambience is just beautiful.</div>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background:var(--blush)">👩</div>
+        <div><div class="reviewer-name">Priya Mehta</div><div class="reviewer-sub">Coffee Enthusiast · Ahmedabad</div></div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-text">Came in on a whim and ended up staying three hours. The Triple Chocolate Shake and the Cucumber Cooler mocktail — I can't decide which one to love more. Coming back tomorrow.</div>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background:var(--mint)">👨</div>
+        <div><div class="reviewer-name">Arjun Desai</div><div class="reviewer-sub">Food Blogger · Surat</div></div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <div class="review-text">The Saffron Cold Brew is worth every rupee. You can taste the care that goes into each ingredient. This isn't just a cafe — it's an experience. Highly recommend the Masala Chai too!</div>
+      <div class="reviewer">
+        <div class="reviewer-avatar" style="background:var(--lavender)">👩</div>
+        <div><div class="reviewer-name">Nisha Shah</div><div class="reviewer-sub">Tea Lover · Vadodara</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <h2>Come visit us. We're always brewing.</h2>
+      <p>Whether you'd like to reserve a table, host a small event, or simply drop by — we'd love to see you.</p>
+      <div class="info-items">
+        <div class="info-item"><div class="info-icon">📍</div><div><div class="info-label">Location</div><div class="info-val">12, Navratna Complex, CG Road,<br>Ahmedabad, Gujarat 380009</div></div></div>
+        <div class="info-item"><div class="info-icon">🕐</div><div><div class="info-label">Hours</div><div class="info-val">Mon – Sat: 7:00 AM – 10:00 PM<br>Sunday: 8:00 AM – 9:00 PM</div></div></div>
+        <div class="info-item"><div class="info-icon">📞</div><div><div class="info-label">Phone</div><div class="info-val">+91 98765 43210</div></div></div>
+        <div class="info-item"><div class="info-icon">✉️</div><div><div class="info-label">Email</div><div class="info-val">hello@dhyeyscafe.in</div></div></div>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <h3>Reserve a Table</h3>
+      <div class="form-group"><label>Your Name</label><input type="text" placeholder="Enter your name"/></div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com"/></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 XXXXX XXXXX"/></div>
+      <div class="form-group"><label>Preferred Date</label><input type="date"/></div>
+      <div class="form-group"><label>Number of Guests</label>
+        <select>
+          <option>1 – 2 guests</option>
+          <option>3 – 4 guests</option>
+          <option>5 – 6 guests</option>
+          <option>7+ guests (private event)</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Any Special Request?</label><textarea placeholder="Dietary restrictions, celebration, etc."></textarea></div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;display:block;text-align:center">Confirm Reservation</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Dhyey's <span>Cafe</span></div>
+  <p>Sip. Savor. Stay.</p>
+  <div class="footer-links">
+    <a href="#menu">Menu</a>
+    <a href="#about">Our Story</a>
+    <a href="#specials">Today's Specials</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="copyright">© 2025 Dhyey's Cafe. All rights reserved. Made with ❤️ in Ahmedabad.</div>
+</footer>
+
+<script>
+  // Tab switching
+  function showTab(name) {
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
